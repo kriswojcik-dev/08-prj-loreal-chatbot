@@ -13,11 +13,48 @@ const systemPrompt =
 // Keep the conversation so the assistant can remember earlier messages.
 const messages = [{ role: "system", content: systemPrompt }];
 
+// Add bold text while keeping the response safe from HTML injection.
+function addFormattedText(parent, text) {
+  const parts = text.split("**");
+
+  parts.forEach((part, index) => {
+    const element = index % 2 === 1 ? document.createElement("strong") : document.createTextNode(part);
+    element.textContent = part;
+    parent.appendChild(element);
+  });
+}
+
 // Add a message to the chat window without treating it as HTML.
 function displayMessage(role, content) {
   const message = document.createElement("p");
   message.className = `msg ${role}`;
-  message.textContent = content;
+
+  if (role === "ai") {
+    const lines = content.split("\n");
+    let bulletList;
+
+    lines.forEach((line) => {
+      if (line.trim().startsWith("- ")) {
+        if (!bulletList) {
+          bulletList = document.createElement("ul");
+          message.appendChild(bulletList);
+        }
+
+        const bullet = document.createElement("li");
+        addFormattedText(bullet, line.trim().slice(2));
+        bulletList.appendChild(bullet);
+        return;
+      }
+
+      bulletList = null;
+      const paragraph = document.createElement("div");
+      addFormattedText(paragraph, line);
+      message.appendChild(paragraph);
+    });
+  } else {
+    message.textContent = content;
+  }
+
   chatWindow.appendChild(message);
   chatWindow.scrollTop = chatWindow.scrollHeight;
 }

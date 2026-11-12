@@ -82,6 +82,15 @@ body {
   overflow-wrap: anywhere;
 }
 
+.msg ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.msg li + li {
+  margin-top: 6px;
+}
+
 .msg.user {
   font-family: var(--body-bold-font);
   align-self: flex-end;
