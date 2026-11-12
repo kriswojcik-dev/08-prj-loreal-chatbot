@@ -25,10 +25,11 @@ body {
   background: var(--radiant-white);
   display: flex;
   justify-content: center;
+  min-width: 320px;
 }
 
 .page-wrapper {
-  width: 90%;
+  width: min(90%, 900px);
   max-width: 900px;
 }
 
@@ -58,7 +59,7 @@ body {
 }
 
 .chat-window {
-  height: 360px;
+  height: clamp(280px, 50vh, 360px);
   border: 1px solid var(--iconic-black);
   padding: 20px;
   font-size: 18px;
@@ -107,6 +108,7 @@ body {
 
 .chat-form input {
   flex: 1;
+  min-width: 0;
   font-family: var(--body-font);
   padding: 12px;
   border: 1px solid var(--iconic-black);
@@ -181,4 +183,51 @@ body {
 
 .site-footer a:hover {
   color: var(--passionate-red);
+}
+
+@media (max-width: 600px) {
+  .page-wrapper {
+    width: 100%;
+    padding: 0 16px;
+  }
+
+  .site-header {
+    padding-top: 28px;
+  }
+
+  .site-logo {
+    width: min(100%, 240px);
+  }
+
+  .site-title {
+    font-size: 19px;
+  }
+
+  .chatbox {
+    margin: 24px 0;
+  }
+
+  .chat-window {
+    height: 55vh;
+    min-height: 260px;
+    padding: 14px;
+    font-size: 16px;
+  }
+
+  .msg {
+    max-width: 92%;
+    padding: 10px 13px;
+  }
+
+  .chat-form {
+    gap: 8px;
+  }
+
+  .chat-form input {
+    font-size: 16px;
+  }
+
+  .site-footer {
+    margin: 40px 0 28px;
+  }
 }
