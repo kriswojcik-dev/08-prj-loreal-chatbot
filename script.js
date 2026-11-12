@@ -34,6 +34,8 @@ chatForm.addEventListener("submit", async (e) => {
     return;
   }
 
+  // Show only the latest question and its response in the chat window.
+  chatWindow.textContent = "";
   displayMessage("user", message);
   messages.push({ role: "user", content: message });
   userInput.value = "";
