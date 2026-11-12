@@ -3,20 +3,72 @@ const chatForm = document.getElementById("chatForm");
 const userInput = document.getElementById("userInput");
 const chatWindow = document.getElementById("chatWindow");
 
+// Replace this with the Cloudflare Worker URL provided for your class.
+const API_URL = "https://loreal-worker.kwojcik4.workers.dev/";
+
 // This instruction keeps the chatbot focused on L'Oréal beauty questions.
 const systemPrompt =
   "You are a helpful L'Oréal beauty assistant. Only answer questions about L'Oréal products, skincare, makeup, haircare, fragrances, beauty routines, and product recommendations. If a question is unrelated, politely explain that you can only help with L'Oréal beauty topics. Do not invent product details; say when you are unsure.";
 
-// Set initial message
-chatWindow.textContent = "👋 Hello! How can I help you today?";
+// Keep the conversation so the assistant can remember earlier messages.
+const messages = [{ role: "system", content: systemPrompt }];
 
-/* Handle form submit */
-chatForm.addEventListener("submit", (e) => {
+// Add a message to the chat window without treating it as HTML.
+function displayMessage(role, content) {
+  const message = document.createElement("p");
+  message.className = `msg ${role}`;
+  message.textContent = content;
+  chatWindow.appendChild(message);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+}
+
+// Set the initial message.
+displayMessage("ai", "👋 Hello! How can I help you today?");
+
+// Send the user's message to the Cloudflare Worker.
+chatForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  // When using Cloudflare, you'll need to POST a `messages` array in the body,
-  // and handle the response using: data.choices[0].message.content
+  const message = userInput.value.trim();
+  if (!message) {
+    return;
+  }
 
-  // Show message
-  chatWindow.innerHTML = "Connect to the OpenAI API for a response!";
+  displayMessage("user", message);
+  messages.push({ role: "user", content: message });
+  userInput.value = "";
+
+  const sendButton = document.getElementById("sendBtn");
+  sendButton.disabled = true;
+
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Request failed with status ${response.status}`);
+    }
+
+    const data = await response.json();
+    const reply = data.choices?.[0]?.message?.content;
+
+    if (!reply) {
+      throw new Error("The API returned no chatbot response.");
+    }
+
+    messages.push({ role: "assistant", content: reply });
+    displayMessage("ai", reply);
+  } catch (error) {
+    console.error("Unable to get a chatbot response:", error);
+    displayMessage(
+      "ai",
+      "Sorry, I could not connect right now. Please try again.",
+    );
+  } finally {
+    sendButton.disabled = false;
+    userInput.focus();
+  }
 });
