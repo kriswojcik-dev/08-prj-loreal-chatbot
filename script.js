@@ -3,7 +3,7 @@ const chatForm = document.getElementById("chatForm");
 const userInput = document.getElementById("userInput");
 const chatWindow = document.getElementById("chatWindow");
 
-// Replace this with the Cloudflare Worker URL provided for your class.
+// Send requests to the deployed Cloudflare Worker, not directly to OpenAI.
 const API_URL = "https://loreal-worker.kwojcik4.workers.dev/";
 
 // This instruction keeps the chatbot focused on L'Oréal beauty questions.
