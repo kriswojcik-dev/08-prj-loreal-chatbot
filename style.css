@@ -5,10 +5,24 @@
   padding: 0;
 }
 
+/* —— brand fonts —— */
+:root {
+  --iconic-black: #000000;
+  --radiant-white: #ffffff;
+  --passionate-red: #ff003b;
+  --eternal-gold: #e3a535;
+  --body-font: "Helvetica Now Display W05 Reg", Arial, Helvetica, sans-serif;
+  --body-light-font: "Helvetica Now Display W05 Lt", Arial, Helvetica, sans-serif;
+  --body-bold-font: "Helvetica Now Display W05 Bd", Arial, Helvetica, sans-serif;
+  --heading-font: "Halesworth eText Medium", Arial, Helvetica, sans-serif;
+  --heading-bold-font: "Halesworth eText Bold", Arial, Helvetica, sans-serif;
+}
+
 /* —— body + fonts —— */
 body {
-  font-family: "Montserrat", Arial, Helvetica, sans-serif;
-  color: #333;
+  font-family: var(--body-font);
+  color: var(--iconic-black);
+  background: var(--radiant-white);
   display: flex;
   justify-content: center;
 }
@@ -24,7 +38,15 @@ body {
   padding-top: 50px;
 }
 
+.site-logo {
+  display: block;
+  width: min(100%, 300px);
+  height: auto;
+  margin: 0 auto 20px;
+}
+
 .site-title {
+  font-family: var(--heading-bold-font);
   font-size: 22px;
   font-weight: 500;
   margin-bottom: 10px;
@@ -37,12 +59,12 @@ body {
 
 .chat-window {
   height: 360px;
-  border: 1px solid #000;
+  border: 1px solid var(--iconic-black);
   padding: 20px;
   font-size: 18px;
   line-height: 1.5;
   overflow-y: auto;
-  background: #fafafa;
+  background: var(--radiant-white);
   white-space: pre-line;
 }
 
@@ -53,11 +75,13 @@ body {
 }
 
 .msg.user {
-  color: #000;
+  font-family: var(--body-bold-font);
+  color: var(--iconic-black);
 }
 
 .msg.ai {
-  color: #666666;
+  font-family: var(--body-light-font);
+  color: var(--iconic-black);
 }
 
 /* input row */
@@ -69,20 +93,22 @@ body {
 
 .chat-form input {
   flex: 1;
+  font-family: var(--body-font);
   padding: 12px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--iconic-black);
   font-size: 18px;
 }
 
 .chat-form input:focus {
-  outline: 2px solid #000;
+  outline: 2px solid var(--passionate-red);
   outline-offset: 2px;
 }
 
 .chat-form button {
+  font-family: var(--heading-font);
   font-size: 18px;
-  background: #000;
-  color: #fff;
+  background: var(--passionate-red);
+  color: var(--radiant-white);
   border: none;
   padding: 12px;
   width: 48px;
@@ -99,11 +125,11 @@ body {
 }
 
 .chat-form button:hover {
-  background: #666666;
+  background: var(--eternal-gold);
 }
 
 .chat-form button:focus {
-  outline: 2px solid #000;
+  outline: 2px solid var(--passionate-red);
   outline-offset: 2px;
 }
 
@@ -125,19 +151,20 @@ body {
   margin: 60px 0 40px;
   text-align: center;
   font-size: 14px;
-  color: #666;
+  color: var(--iconic-black);
 }
 
 .site-footer nav {
+  font-family: var(--heading-font);
   margin-top: 12px;
 }
 
 .site-footer a {
   margin: 0 8px;
-  color: #000;
+  color: var(--iconic-black);
   text-decoration: none;
 }
 
 .site-footer a:hover {
-  color: #666666;
+  color: var(--passionate-red);
 }
