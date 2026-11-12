@@ -11,11 +11,11 @@
   --radiant-white: #ffffff;
   --passionate-red: #ff003b;
   --eternal-gold: #e3a535;
-  --body-font: "Helvetica Now Display W05 Reg", Arial, Helvetica, sans-serif;
-  --body-light-font: "Helvetica Now Display W05 Lt", Arial, Helvetica, sans-serif;
-  --body-bold-font: "Helvetica Now Display W05 Bd", Arial, Helvetica, sans-serif;
-  --heading-font: "Halesworth eText Medium", Arial, Helvetica, sans-serif;
-  --heading-bold-font: "Halesworth eText Bold", Arial, Helvetica, sans-serif;
+  --body-font: "Inter", Arial, Helvetica, sans-serif;
+  --body-light-font: "Inter", Arial, Helvetica, sans-serif;
+  --body-bold-font: "Inter", Arial, Helvetica, sans-serif;
+  --heading-font: "Montserrat", Arial, Helvetica, sans-serif;
+  --heading-bold-font: "Montserrat", Arial, Helvetica, sans-serif;
 }
 
 /* —— body + fonts —— */
