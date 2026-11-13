@@ -87,6 +87,11 @@ body {
   padding-left: 20px;
 }
 
+.response-heading {
+  font-family: var(--heading-bold-font);
+  margin-bottom: 6px;
+}
+
 .msg li + li {
   margin-top: 6px;
 }

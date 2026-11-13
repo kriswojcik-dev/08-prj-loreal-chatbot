@@ -34,6 +34,16 @@ function displayMessage(role, content) {
     let bulletList;
 
     lines.forEach((line) => {
+      const heading = line.trim().match(/^#{1,6}\s+(.+)$/);
+      if (heading) {
+        bulletList = null;
+        const headingElement = document.createElement("div");
+        headingElement.className = "response-heading";
+        addFormattedText(headingElement, heading[1]);
+        message.appendChild(headingElement);
+        return;
+      }
+
       if (line.trim().startsWith("- ")) {
         if (!bulletList) {
           bulletList = document.createElement("ul");
