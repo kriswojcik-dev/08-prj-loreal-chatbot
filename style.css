@@ -92,6 +92,15 @@ body {
   margin-bottom: 6px;
 }
 
+.msg a {
+  color: var(--passionate-red);
+  text-decoration: underline;
+}
+
+.msg a:hover {
+  color: var(--eternal-gold);
+}
+
 .msg li + li {
   margin-top: 6px;
 }

@@ -13,15 +13,32 @@ const systemPrompt =
 // Keep the conversation so the assistant can remember earlier messages.
 const messages = [{ role: "system", content: systemPrompt }];
 
-// Add bold text while keeping the response safe from HTML injection.
+// Add bold text and clickable links while keeping the response safe from HTML injection.
 function addFormattedText(parent, text) {
-  const parts = text.split("**");
+  const markdownPattern = /(\[([^\]]+)\]\((https?:\/\/[^\s)]+)\))|(\*\*([^*]+)\*\*)/g;
+  let lastIndex = 0;
+  let match;
 
-  parts.forEach((part, index) => {
-    const element = index % 2 === 1 ? document.createElement("strong") : document.createTextNode(part);
-    element.textContent = part;
-    parent.appendChild(element);
-  });
+  while ((match = markdownPattern.exec(text)) !== null) {
+    parent.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
+
+    if (match[2] && match[3]) {
+      const link = document.createElement("a");
+      link.href = match[3];
+      link.textContent = match[2];
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      parent.appendChild(link);
+    } else {
+      const boldText = document.createElement("strong");
+      boldText.textContent = match[5];
+      parent.appendChild(boldText);
+    }
+
+    lastIndex = markdownPattern.lastIndex;
+  }
+
+  parent.appendChild(document.createTextNode(text.slice(lastIndex)));
 }
 
 // Add a message to the chat window without treating it as HTML.
